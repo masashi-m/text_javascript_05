@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>JS_5.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="1-vuejs1">1. Vue.js(1)</h1>
+<h2 id="%E2%97%86vuejs-%E3%81%A8%E3%81%AF">◆Vue.js とは</h2>
+<p>・元 Google 社員の Evan You によって制作された JavaScript フレームワーク。<br>
+・Web アプリケーションの UI 部分を構築する。<br>
+・シンプルな操作を目標に開発された。</p>
+<img src="vue_logo.png">
+<h3 id="%E2%97%8F-%E7%89%B9%E5%BE%B4">● 特徴</h3>
+<p>・HTML をオブジェクトと見なして操作できる。<br>
+・jQuery や JavaScript そのままよりも記述がシンプル。<br>
+・双方向データバインディング(後述)の機能を有する。<br>
+・PHP や Python、Ruby 等の言語フレームワークと連携が可能</p>
+<br>
+<h2 id="%E2%97%86-%E5%9F%BA%E6%9C%AC%E6%A7%8B%E9%80%A0">◆ 基本構造</h2>
+<h3 id="%E2%97%8Fvue-%E3%82%A4%E3%83%B3%E3%82%B9%E3%82%BF%E3%83%B3%E3%82%B9">●Vue インスタンス</h3>
+<p>Vue.js を記述する場合、<mark>「Vue インスタンス」</mark>を作成します。<br>
+(インスタンス：実体の意味。処理・実行されるモノを指す)</p>
+<p>Vue インスタンスは Vue.js を記述する際に必須のため、<br>
+コードを書いて慣れて行きましょう。<br>
+基本構造は以下の形になります。</p>
+<p>[JavaScript]</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">let</span> app = <span class="hljs-keyword">new</span> Vue({
+  <span class="hljs-comment">//実行処理(オプション)</span>
+});
+</div></code></pre>
+<br>
+<h3 id="%E2%97%8Fvuejs-%E3%81%AE%E6%BA%96%E5%82%99">●Vue.js の準備</h3>
+<p>Vue.js は HTML に対して実行しますので、HTML ファイルと<br>
+JavaScript ファイルを作成して準備しましょう。</p>
+<blockquote>
+<p>(1)Visual Studio Code を立ち上げる。</p>
+<p>(2)デスクトップに「Vue」フォルダ作成</p>
+<p>(3)File &gt; Open Folder &gt; Vue を選択して開く</p>
+<p>(4)EXPLORER 配下の Vue をクリックし、次のフォルダを作成<br>
+・html<br>
+・css<br>
+・js<br></p>
+<p>(5)作成した各フォルダ配下に次のファイルを作成<br>
+・html フォルダ &gt; index.html<br>
+・css フォルダ &gt; style.css<br>
+・js フォルダ &gt; vue.js<br></p>
+</blockquote>
+<img src="directory2.png">
+<p><br><br></p>
+<h3 id="%E2%97%8Fhtml-%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E8%A8%98%E8%BF%B0">●HTML ファイルの記述</h3>
+<p>それでは、いよいよコードを記述して行きましょう。<br>
+まずは次の演習を進め、html ファイルを準備します。</p>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 1</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+以下のコードを index.html ファイルに記述しましょう。<br>
+※ Emmet「!」で基本のHTMLタグが記述されます。<br>
+不要なタグや修正箇所があるので、注意しましょう。
+</div>
+<pre class="hljs"><code><div><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"ja"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Application<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</div></code></pre>
+<br>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 2</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+以下のコードを index.html ファイルに追記しましょう。<br>
+なお、VueのCDNは<a href="https://jp.vuejs.org/v2/guide/installation.html">ここ</a>から取得しています。
+</div>
+<pre class="hljs"><code><div><span class="hljs-comment">&lt;!-- ◆CSSファイルの連携(titleタグの下) --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"../css/style.css"</span> /&gt;</span>
+
+<span class="hljs-comment">&lt;!-- ◆VueのCDN設定(bodyの終了タグの上) --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/vue@2.6.0"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- ◆jsファイルの連携(bodyの終了タグの上) --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"../js/vue.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</div></code></pre>
+<br>
+<hr>
+<p><br><br><br></p>
+<h1 id="2vuejs2">2.Vue.js(2)</h1>
+<h3 id="%E2%97%8Fhtml-%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E8%A8%98%E8%BF%B0">●HTML ファイルの記述</h3>
+<p>引き続き、HTML ファイルの準備を進めて行きます。<br>
+さっそく、次の演習を実施しましょう。</p>
+<br>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 1</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+以下のコードを記述し、Google Chromeを更新して結果を確認しましょう。<br>
+</div>
+<p>[html]</p>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app1"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+      {{ message }}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  {{ message }}
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+</div></code></pre>
+<br>
+<h3 id="%E2%97%8Fmustache%E3%83%9E%E3%82%B9%E3%82%BF%E3%83%83%E3%82%B7%E3%83%A5%E6%A7%8B%E6%96%87">●Mustache(マスタッシュ)構文</h3>
+<p>上記の演習では、HTML ファイルに対して<br>
+(1) div タグで id=&quot;app1&quot; の属性を指定、<br>
+(2) p タグの中に {{ message }} を記述しました。</p>
+<p>これは、この後記述する js ファイルの指定先を作成しています。<br>
+つまり、vue.js は id=&quot;app1&quot; と {{ message }} を参照する事になります。</p>
+<p>二重波括弧の事を <mark>「Mastache 構文」</mark>といいます。<br>
+Vue.js の記述方式で、JavaScript の式を利用する事が可能です。<br>
+また、Mastache 構文内の式を<mark>「バインディング(式)」</mark>とも言います。</p>
+<br>
+<h3 id="%E2%97%8Fjavascript-%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E8%A8%98%E8%BF%B0">●JavaScript ファイルの記述</h3>
+<p>次に js ファイルの記述を進めて行きます。<br>
+次の演習を実施しましょう。</p>
+<br>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 2</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+以下のコードを記述し、Google Chromeを更新して結果を確認しましょう。<br>
+</div>
+<p>[JavaScript]</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">let</span> app = <span class="hljs-keyword">new</span> Vue({
+  <span class="hljs-attr">el</span>: <span class="hljs-string">"#app1"</span>,
+  <span class="hljs-attr">data</span>: {
+    <span class="hljs-attr">message</span>: <span class="hljs-string">"Hello Vue.js!"</span>,
+  },
+});
+</div></code></pre>
+<br>
+<p>ブラウザには、js ファイルに記述された 「Hello Vue.js!」の<br>
+上で表示され、その下に {{ message }} の文字列が<br>
+表示されているはずです。<br>
+これらについて、1 つずつ解説して行きましょう。</p>
+<br>
+<h3 id="%E2%97%8F-%E3%83%87%E3%83%BC%E3%82%BF%E3%83%90%E3%82%A4%E3%83%B3%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0">● データバインディング</h3>
+<p>js ファイルの Vue インスタンスの中には、2 種類の記述があります。</p>
+<p>1 つ目が el(エレメント)です。ここでは、HTML ファイル内の<br>
+id:app1 の要素を指定しています。</p>
+<p>2 つ目が データオプションです。message に対して Hello Vue.js! の<br>
+データを与えています。</p>
+<p>Vue インスタンス内でこれらを記述した事により、<br>
+「id 属性 app1」の HTML 要素に対し、<br>
+「message: 'Hello Vue.js!'」が<br>
+連結(データバインディング) された結果、<br>
+ブラウザに表示されます。</p>
+<p>また、div の外にある {{ message }} がそのままになるのは、<br>
+Vue の対象範囲外であり、html として表示されるためです。</p>
+<img src="binding1.png">
+<p><br><br></p>
+<h3 id="%E2%97%8F-%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E8%A1%A8%E7%A4%BA">● オブジェクトの表示</h3>
+<p>Mastache 構文には、文字列以外にも数値や式、オブジェクトを<br>
+使用する事ができます。次の演習に取り組みましょう。</p>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 2</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+以下のコードを記述し、Google Chromeを更新して結果を確認しましょう。<br>
+</div>
+<p>[html]</p>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app2"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"todo in todos"</span>&gt;</span>{{ todo }}<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</div></code></pre>
+<p>[JavaScript]</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">let</span> app = <span class="hljs-keyword">new</span> Vue({
+  <span class="hljs-attr">el</span>: <span class="hljs-string">"#app2"</span>,
+  <span class="hljs-attr">data</span>: {
+    <span class="hljs-attr">todos</span>: [<span class="hljs-string">"tomato"</span>, <span class="hljs-string">"carot"</span>, <span class="hljs-string">"onion"</span>],
+  },
+});
+</div></code></pre>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 3</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+下記のコードを記述し、実行結果を確認しましょう。<br>
+</div>
+<p>[html]</p>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app3"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>現在時刻は {{ now_time }}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-keyword">let</span> now = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
+
+<span class="hljs-keyword">let</span> app = <span class="hljs-keyword">new</span> Vue({
+  <span class="hljs-attr">el</span>: <span class="hljs-string">"#app3"</span>,
+  <span class="hljs-attr">data</span>: {
+    <span class="hljs-attr">now_time</span>: now.toLocaleTimeString(),
+  },
+});
+</div></code></pre>
+<p><br><hr></p>
+<p><br><br><br></p>
+<h1 id="3-vuejs3">3. Vue.js(3)</h1>
+<h2 id="%E2%97%86-%E5%8F%8C%E6%96%B9%E5%90%91%E3%83%87%E3%83%BC%E3%82%BF%E3%83%90%E3%82%A4%E3%83%B3%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0">◆ 双方向データバインディング</h2>
+<p>HTML と JavaScript のデータを連結させる際、<br>
+片方の変更がもう片方にも反映される設定を、<br>
+双方向データバインディングといいます。</p>
+<p>演習を実施し、コードに慣れて行きましょう。</p>
+<br>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 1 (テキストボックス)</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+以下のコードを記述し、ブラウザを更新してからテキストボックスに文字を入力しましょう。<br>
+</div>
+<p>[HTML]</p>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app4"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>My name is {{ name }}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"name"</span> /&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-keyword">let</span> app = <span class="hljs-keyword">new</span> Vue({
+  <span class="hljs-attr">el</span>: <span class="hljs-string">"#app4"</span>,
+  <span class="hljs-attr">data</span>: {
+    <span class="hljs-attr">name</span>: <span class="hljs-string">"Keiso"</span>,
+  },
+});
+</div></code></pre>
+<p><br><br></p>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 2 (ラジオボックス)</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+以下のコードを記述し、ブラウザを更新してからテキストボックスに文字を入力しましょう。<br>
+</div>
+<br>
+<p>[HTML]</p>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app5"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"apple"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"Apple"</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"checkedFruits"</span> /&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"apple"</span>&gt;</span>Apple<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"orange"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"Orange"</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"checkedFruits"</span> /&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"orange"</span>&gt;</span>Orange<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"grape"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"Grape"</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"checkedFruits"</span> /&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"grape"</span>&gt;</span>Grape<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>買い物かご： {{ checkedFruits }}<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</div></code></pre>
+<p>[JavaScript]</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">let</span> app = <span class="hljs-keyword">new</span> Vue({
+  <span class="hljs-attr">el</span>: <span class="hljs-string">"#app5"</span>,
+  <span class="hljs-attr">data</span>: {
+    <span class="hljs-attr">checkedFruits</span>: [],
+  },
+});
+</div></code></pre>
+<p><br><br></p>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 3 (セレクトボックス)</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+以下のコードを記述し、ブラウザを更新してからセレクトを選択しましょう。<br>
+</div>
+<p>[HTML]</p>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app6"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"selected"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">disabled</span> <span class="hljs-attr">value</span>=<span class="hljs-string">""</span>&gt;</span>ご希望のプランをお選び下さい<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">option</span>&gt;</span>VBA習得コース<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">option</span>&gt;</span>Javaアプリ作成コース<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">option</span>&gt;</span>Webサイト構築コース<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>コース : {{ selected }}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</div></code></pre>
+<p>[JavaScript]</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">let</span> app = <span class="hljs-keyword">new</span> Vue({
+  <span class="hljs-attr">el</span>: <span class="hljs-string">"#app6"</span>,
+  <span class="hljs-attr">data</span>: {
+    <span class="hljs-attr">selected</span>: <span class="hljs-string">""</span>,
+  },
+});
+</div></code></pre>
+<br>
+<hr>
+<p><br><br><br></p>
+<h1 id="4-vuejs4">4. Vue.js(4)</h1>
+<h2 id="%E2%97%86todo-%E3%83%AA%E3%82%B9%E3%83%88%E3%81%AE%E4%BD%9C%E6%88%90">◆TODO リストの作成</h2>
+<p>総合演習として「TODO リスト」を作成し、<br>
+アプリケーション構築の基礎を学んで行きましょう。</p>
+<br>
+<h3 id="%E2%97%8Ftodo-%E3%83%AA%E3%82%B9%E3%83%88%E3%81%AB%E5%BF%85%E8%A6%81%E3%81%AA%E6%A9%9F%E8%83%BD">●TODO リストに必要な機能</h3>
+<blockquote>
+<p>・テキスト入力フォーム<br>
+・追加ボタン<br>
+・タスクリストの表示<br>
+・チェックボックスと取消し線の表示<br>
+・削除ボタンとオブジェクトの削除<br></p>
+</blockquote>
+<p>以下の演習を進め、html, CSS, JavaScript のコーディングを実施しましょう。</p>
+<br>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:pink; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">総合演習1-1</span>
+</div>
+<div style="border:4px solid pink; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+デスクトップに TODOフォルダを作成し、JS_5-1と同様に<br>
+3つのフォルダを作成します。その後、todo.htmlファイルを<br>
+作成し、以下のコードを記述しましょう。<br>
+<p>[html]</p>
+<pre class="hljs"><code><div><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"ja"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Application<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"../css/style.css"</span> /&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>ToDo リスト<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">v-on:submit.prevent</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"newItem"</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">v-on:click</span>=<span class="hljs-string">"addItem"</span>&gt;</span>追加<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">v-cloak</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"(todo, index) in todos"</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"todo.isDone"</span> /&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">v-bind:class</span>=<span class="hljs-string">"{ done: todo.isDone }"</span>&gt;</span>{{ todo.item }}<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">v-on:click</span>=<span class="hljs-string">"deleteItem(index)"</span>&gt;</span>削除<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"../js/vue.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</div></code></pre>
+</div>
+<p><br><br></p>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:pink; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">総合演習1-2</span>
+</div>
+<div style="border:4px solid pink; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+cssフォルダに style.cssファイルを作成、以下の<br>
+コードを記述しましょう。
+<pre class="hljs"><code><div><span class="hljs-selector-tag">h1</span> {
+  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">40px</span>;
+}
+
+<span class="hljs-selector-id">#app</span> <span class="hljs-selector-tag">ul</span> {
+  <span class="hljs-attribute">list-style</span>: none;
+  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">15px</span>;
+  <span class="hljs-attribute">color</span>: black;
+}
+
+<span class="hljs-selector-tag">li</span> {
+  <span class="hljs-attribute">padding-bottom</span>: <span class="hljs-number">10px</span>;
+}
+<span class="hljs-comment">/*チェックボックスをクリックした時に取消線を表示*/</span>
+<span class="hljs-selector-id">#app</span> <span class="hljs-selector-tag">li</span> &gt; <span class="hljs-selector-tag">span</span><span class="hljs-selector-class">.done</span> {
+  <span class="hljs-attribute">text-decoration</span>: line-through;
+}
+</div></code></pre>
+</div>
+<p><br><br></p>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:pink; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">総合演習1-3</span>
+</div>
+<div style="border:4px solid pink; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+jsフォルダに veu.jsファイルを作成後、以下のコードを記述しましょう。<br>
+<pre class="hljs"><code><div><span class="hljs-comment">//インスタンスの作成</span>
+<span class="hljs-keyword">let</span> app = <span class="hljs-keyword">new</span> Vue({
+  <span class="hljs-attr">el</span>: <span class="hljs-string">"#app"</span>,
+  <span class="hljs-attr">data</span>: {
+    <span class="hljs-comment">//タスクを格納する変数newItemを定義</span>
+    <span class="hljs-attr">newItem</span>: <span class="hljs-string">""</span>,
+    <span class="hljs-comment">//変数todosに配列を定義</span>
+    <span class="hljs-attr">todos</span>: [],
+  },
+
+  <span class="hljs-comment">//methodsオプションの定義</span>
+  <span class="hljs-attr">methods</span>: {
+    <span class="hljs-attr">addItem</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) </span>{
+      <span class="hljs-comment">//テキストボックスが空の場合は処理を止める</span>
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.newItem == <span class="hljs-string">""</span>) <span class="hljs-keyword">return</span>;
+
+      <span class="hljs-comment">//変数todoにタスクを格納</span>
+      <span class="hljs-keyword">let</span> todo = {
+        <span class="hljs-attr">item</span>: <span class="hljs-keyword">this</span>.newItem,
+        <span class="hljs-attr">isDone</span>: <span class="hljs-literal">false</span>, <span class="hljs-comment">//格納時isDoneオブジェクトの値はfalse</span>
+      };
+
+      <span class="hljs-keyword">this</span>.todos.push(todo); <span class="hljs-comment">//配列todosにtodoのオブジェクト：プロパティを格納</span>
+      <span class="hljs-keyword">this</span>.newItem = <span class="hljs-string">""</span>; <span class="hljs-comment">//テキストボックスの文字をクリア</span>
+    },
+    <span class="hljs-comment">//deleteItemメソッドの定義</span>
+    <span class="hljs-attr">deleteItem</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">index</span>) </span>{
+      <span class="hljs-keyword">this</span>.todos.splice(index, <span class="hljs-number">1</span>); <span class="hljs-comment">//リストを削除</span>
+    },
+  },
+});
+</div></code></pre>
+</div>
+<p><br><br></p>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:pink; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">総合演習1-4</span>
+</div>
+<div style="border:4px solid pink; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+上記 3ファイルのコーディングが完了したら、todo.htmlを<br>  
+Google Chromeで立ち上げ、テキストボックスにタスクを<br>  
+入力し、AddボタンまたはEnterキーで実行しましょう。<br>
+また、チェックボックスやDeleteボタンで挙動が変化するか<br>  
+合わせて確認しましょう。<br>
+</div>
+<p>今回はここまでです。お疲れ様でした！
+<br></p>
+<p><a href="https://masashi-m.github.io/text_htmlcss_06/">JavaScript 学習テキスト(6)へ</a></p>
+
+</body>
+</html>
